@@ -1,0 +1,27 @@
+<!-- templates/finance/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный банк</title>
+</head>
+<body>
+    <h1>Личный банк</h1>
+    <div>
+        <h2>Общая информация:</h2>
+        <p><strong>Общие расходы:</strong> {{ total_expenses }}₸</p>
+        <p><strong>Общие доходы:</strong> {{ total_income }}₸</p>
+        <p><strong>Баланс:</strong> {{ balance }}₸</p>
+    </div>
+    <div>
+        <h2>Навигация:</h2>
+        <ul>
+            <li><a href="{% url 'expense_list' %}">Список расходов</a></li>
+            <li><a href="{% url 'add_expense' %}">Добавить расход</a></li>
+            <li><a href="{% url 'income_list' %}">Список доходов</a></li>
+            <li><a href="{% url 'add_income' %}">Добавить доход</a></li>
+        </ul>
+    </div>
+</body>
+</html>

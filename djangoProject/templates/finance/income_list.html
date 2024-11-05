@@ -1,0 +1,26 @@
+<!-- income_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Income List</title>
+</head>
+<body>
+    <h1>Income List</h1>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Date</th>
+        </tr>
+        {% for income in incomes %}
+        <tr>
+            <td>{{ income.name }}</td>
+            <td>{{ income.amount }}</td>
+            <td>{{ income.date }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'add_income' %}">Add New Income</a>
+</body>
+</html>
