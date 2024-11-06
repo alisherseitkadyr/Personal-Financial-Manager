@@ -2,8 +2,6 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .forms import ExpenseForm, IncomeForm
 from .models import Expense, Income
-from .forms import IncomeForm
-from django.db.models import Sum
 from .services import BalanceService
 from datetime import date
 # Retrieve all user's expenses
@@ -50,10 +48,11 @@ def add_income(request):
 def home(request):
     balance_service = BalanceService()
     print(f"BalanceService instance ID: {id(balance_service)}")  # Print the instance ID
-
-    total_expenses = balance_service.get_total_expenses()
-    total_income = balance_service.get_total_income()
-    balance = balance_service.get_balance()
+    # Update general info
+    balance_service.calculate_totals(request.user)
+    total_expenses = balance_service.get_total_expenses(request.user)
+    total_income = balance_service.get_total_income(request.user)
+    balance = balance_service.get_balance(request.user)
 
     return render(request, 'home.html', {
         'total_expenses': total_expenses,

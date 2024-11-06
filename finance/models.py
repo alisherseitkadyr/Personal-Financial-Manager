@@ -10,7 +10,7 @@ class Expense(models.Model):
 
     def __str__(self):
         return self.name
-# Incomse model
+# Income model
 class Income(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
