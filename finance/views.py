@@ -1,11 +1,11 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-
 from django.shortcuts import render, redirect
-from .forms import ExpenseForm
+from .forms import ExpenseForm, IncomeForm
 from .models import Expense, Income
 from .forms import IncomeForm
 from django.db.models import Sum
+from .services import BalanceService
+from datetime import date
 # Retrieve all user's expenses
 @login_required
 def expense_list(request):
@@ -17,6 +17,9 @@ def add_expense(request):
     if request.method == 'POST':
         form = ExpenseForm(request.POST)
         if form.is_valid():
+            # Ensure that 'date' is provided or default to today's date
+            if not form.cleaned_data.get('date'):
+                form.instance.date = date.today()  # Set today's date if no date is provided
             expense = form.save(commit=False)
             expense.user = request.user  # Link expense to the logged-in user
             expense.save()
@@ -45,11 +48,14 @@ def add_income(request):
 # Calculate user's total expenses, income and balance
 @login_required
 def home(request):
-    total_expenses = Expense.objects.filter(user=request.user).aggregate(total=Sum('amount'))['total'] or 0
-    total_income = Income.objects.filter(user=request.user).aggregate(total=Sum('amount'))['total'] or 0
-    balance = total_income - total_expenses
+    balance_service = BalanceService()
+    print(f"BalanceService instance ID: {id(balance_service)}")  # Print the instance ID
 
-    return render(request, '../templates/home.html', {
+    total_expenses = balance_service.get_total_expenses()
+    total_income = balance_service.get_total_income()
+    balance = balance_service.get_balance()
+
+    return render(request, 'home.html', {
         'total_expenses': total_expenses,
         'total_income': total_income,
         'balance': balance,

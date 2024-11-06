@@ -1,5 +1,3 @@
-# finance/urls.py
-
 from django.urls import path
 from .views import expense_list, add_expense, income_list, add_income, home
 
