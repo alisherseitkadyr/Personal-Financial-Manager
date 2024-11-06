@@ -6,14 +6,28 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Expense List</title>
 </head>
-<body>
-    <h1>Expenses</h1>
-    <a href="{% url 'add_expense' %}">Add Expense</a>
-    <ul>
+<body class="bg-dark">
+<section class="mt-3">
+    <h1 class="text-white ms-2">Expenses List</h1>
+    <table class="table table-info table-bordered">
+        <tr>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Date</th>
+        </tr>
         {% for expense in expenses %}
-            <li>{{ expense.name }} - {{ expense.amount }} - {{ expense.date }}</li>
+        <tr>
+            <td>{{ expense.name }}</td>
+            <td>{{ expense.amount }}</td>
+            <td>{{ expense.date }}</td>
+        </tr>
         {% endfor %}
-    </ul>
+    </table>
+</section>
+<div class="ms-3">
+    <a class="btn btn-primary mt-3" href="{% url 'add_expense' %}">Add New Expense</a>
+    <a class="ms-2 btn btn-primary mt-3" href="{% url 'home' %}">Home</a>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
