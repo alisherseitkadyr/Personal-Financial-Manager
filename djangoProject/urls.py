@@ -18,13 +18,14 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from finance.views import home  # Импортируем представление home
+from finance.views import home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name='home'),  # Путь для главной страницы
-    path('expenses/', include('finance.urls')),  # Включаем URL-адреса для расходов
-    path('incomes/', include('finance.urls')),  # Включаем URL-адреса для доходов
+    path('', home, name='home'),  # Path to the home page
+    path('expenses/', include('finance.urls')),  # Include finance expenses URL
+    path('incomes/', include('finance.urls')),  # Include finance incomes URL
+    path('accounts/', include('accounts.urls')), # Include accounts URL
 ]
 
 
