@@ -1,29 +1,35 @@
-from django.shortcuts import render
-
 from django.shortcuts import render, redirect
-from .forms import ExpenseForm
+from .forms import ExpenseForm, IncomeForm
 from .models import Expense, Income
-from .forms import IncomeForm
-from django.db.models import Sum
+from .services import BalanceService
+from datetime import date
 
 
 def expense_list(request):
     expenses = Expense.objects.all()
-    return render(request, '../templates/expense_list.html', {'expenses': expenses})
+    return render(request, 'expense_list.html', {'expenses': expenses})
+
 
 def add_expense(request):
     if request.method == 'POST':
         form = ExpenseForm(request.POST)
         if form.is_valid():
+            # Ensure that 'date' is provided or default to today's date
+            if not form.cleaned_data.get('date'):
+                form.instance.date = date.today()  # Set today's date if no date is provided
+
             form.save()
             return redirect('expense_list')
     else:
         form = ExpenseForm()
-    return render(request, '../templates/add_expense.html', {'form': form})
+
+    return render(request, 'add_expense.html', {'form': form})
+
 
 def income_list(request):
     incomes = Income.objects.all()
-    return render(request, '../templates/income_list.html', {'incomes': incomes})
+    return render(request, 'income_list.html', {'incomes': incomes})
+
 
 def add_income(request):
     if request.method == 'POST':
@@ -33,15 +39,20 @@ def add_income(request):
             return redirect('income_list')
     else:
         form = IncomeForm()
-    return render(request, '../templates/add_income.html', {'form': form})
+    return render(request, 'add_income.html', {'form': form})
+
 
 def home(request):
-    total_expenses = Expense.objects.aggregate(total=Sum('amount'))['total'] or 0
-    total_income = Income.objects.aggregate(total=Sum('amount'))['total'] or 0
-    balance = total_income - total_expenses
+    balance_service = BalanceService()
+    print(f"BalanceService instance ID: {id(balance_service)}")  # Print the instance ID
 
-    return render(request, '../templates/home.html', {
+    total_expenses = balance_service.get_total_expenses()
+    total_income = balance_service.get_total_income()
+    balance = balance_service.get_balance()
+
+    return render(request, 'home.html', {
         'total_expenses': total_expenses,
         'total_income': total_income,
         'balance': balance,
     })
+
