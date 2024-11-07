@@ -11,6 +11,23 @@ The architecture is composed of:
 
 This architecture ensures a clear separation between the backend logic and frontend display, making the application more maintainable and scalable.
 
+## Django Architecture Pattern: Model-View-Template (MVT)
+Django follows the Model-View-Template (MVT) architecture, which is similar to the Model-View-Controller (MVC) pattern but adapted for web development. Here’s a breakdown of the components in Django's MVT architecture:
+
+1. **Model**
+The Model is responsible for the data layer of the application. It defines the structure of the data, including the fields and behaviors of the data stored in the database.
+Each model class typically represents a database table. Django provides an ORM (Object-Relational Mapping) that enables easy interaction with the database.
+Example: models.py file contains model classes (e.g., User, Product) defining the attributes and relationships between them.
+2. **View**
+The View handles the application logic and processes user requests. It fetches data from the Model and sends it to the Template for rendering.
+In Django, views can be either function-based or class-based, offering flexibility in handling HTTP requests and responses.
+Example: views.py file defines functions or classes (e.g., ProductListView, UserDetailView) that retrieve data and determine how it should be displayed.
+3. **Template**
+The Template layer is responsible for presenting the data to the user. It contains HTML files that define the structure and layout of the web pages.
+Django templates use Django Template Language (DTL) to dynamically insert data passed from views into the HTML content.
+Example: templates folder contains HTML files (e.g., product_list.html, user_detail.html) that render the output.
+
+
 ## Design Patterns
 This project incorporates several design patterns to address specific design needs:
 
