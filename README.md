@@ -12,19 +12,19 @@ The architecture is composed of:
 This architecture ensures a clear separation between the backend logic and frontend display, making the application more maintainable and scalable.
 
 ## Design Patterns
-This project incorporates several design patterns to solve specific design challenges:
+This project incorporates several design patterns to address specific design needs:
 
 1. **Singleton** (Creational)
-   - Ensures only one instance of critical components (e.g., configuration manager) exists across the application.
-   - Example: The Singleton pattern is applied to manage configuration settings, ensuring consistency throughout the application.
+   - Ensures only one instance of essential services exists across the application, reducing redundant instantiation and maintaining a single source of truth.
+   - Example: The Singleton pattern is applied to manage key services, ensuring that only one instance of each service is created throughout the application.
 
 2. **Factory Method** (Creational)
-   - Allows for the creation of specific types of objects without tightly coupling the code.
-   - Example: Used to generate different types of financial records, such as income or expense items, based on categories.
+   - Facilitates the creation of specific types of objects, enabling flexible and decoupled code.
+   - Example: Used to generate different types of users, allowing for scalable and manageable user creation processes.
 
 3. **Observer** (Behavioral)
-   - Implements a subscription mechanism to notify other parts of the system when certain data changes.
-   - Example: The Observer pattern updates the user interface when changes are made to expense or balance data.
+   - Provides a subscription mechanism to notify different parts of the system when changes occur.
+   - Example: The Observer pattern monitors changes in data (such as expenses) and sends notifications, ensuring that users are updated in real time when relevant data is modified.
 
 ## UML Diagrams
 Currently, UML diagrams are not available for this project. Future updates may include:
