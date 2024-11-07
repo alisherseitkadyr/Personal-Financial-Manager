@@ -44,6 +44,10 @@ This project incorporates several design patterns to address specific design nee
 4. **Facade** (Structural)  
    - **Purpose**: The Facade pattern provides a simplified interface to a complex subsystem, making it easier for clients to interact with it without needing to understand the details. It groups and manages several classes and services, allowing other parts of the application to access them through a single, unified interface.
    - **Example in Project**: The **FinanceFacade** class in this project centralizes financial operations by encapsulating the balance calculations and notification system, making it easier to manage and interact with these features. By using the Facade pattern, the project can access methods related to financial summaries, transactions, and notifications through a single access point, reducing code complexity and improving maintainability.
+  
+5. **Command** (Behavioral)
+    - **Purpose**: Enabling Undo/Redo Functionality: By encapsulating actions, the pattern allows reversing (undoing) operations by keeping track of commands.
+    - **Exmaple in project**: Decoupling the Invoker from the Receiver: The object requesting an action (Invoker) is separated from the object that performs it (Receiver), promoting loose coupling.
 
 ## UML Diagrams
 Currently, UML diagrams are not available for this project. Future updates may include:
