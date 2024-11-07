@@ -15,12 +15,14 @@
             <th>Name</th>
             <th>Amount</th>
             <th>Date</th>
+            <th></th>
         </tr>
         {% for income in incomes %}
         <tr>
             <td>{{ income.name }}</td>
             <td>{{ income.amount }}</td>
             <td>{{ income.date }}</td>
+        <td><a class="btn btn-primary" href="{% url 'income_delete' income.id %}">Delete</a></td>
         </tr>
         {% endfor %}
     </table>

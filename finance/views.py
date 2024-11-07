@@ -1,6 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views.generic import DeleteView
+
 from .forms import ExpenseForm, IncomeForm
 from .models import Expense, Income, Notification
 from .services import BalanceService, InfoNotification, WarningNotification, SuccessNotification
@@ -76,6 +79,16 @@ def add_income(request):
     else:
         form = IncomeForm()
     return render(request, '../templates/add_income.html', {'form': form, 'notification_elements': notification_elements})
+
+class ExpenseDeleteView(DeleteView):
+    model = Expense
+    template_name = 'expense_confirm_delete.html'  # template for confirmation
+    success_url = reverse_lazy('expense_list')     # URL to redirect after deletion
+
+class IncomeDeleteView(DeleteView):
+    model = Income
+    template_name = 'income_confirm_delete.html'  # template for confirmation
+    success_url = reverse_lazy('income_list')     # URL to redirect after deletion
 # Calculate user's total expenses, income and balance
 @login_required
 def home(request):
