@@ -19,4 +19,9 @@ class Income(models.Model):
 
     def __str__(self):
         return self.name
-
+class Notification(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    message = models.TextField()
+    level = models.CharField(max_length=20)  # e.g., 'info', 'warning', 'success'
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)

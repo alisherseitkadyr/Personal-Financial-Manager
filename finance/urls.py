@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import expense_list, add_expense, income_list, add_income, home
+from .views import expense_list, add_expense, income_list, add_income, home, mark_notification_read
 
 urlpatterns = [
     path('', home, name='home'),  # Home page path
@@ -7,5 +7,6 @@ urlpatterns = [
     path('expenses/add/', add_expense, name='add_expense'),  # Add expenses page path
     path('incomes/', income_list, name='income_list'),  # Incomes list path
     path('incomes/add/', add_income, name='add_income'),  # Add incomes page path
+path('notifications/mark-read/<int:notification_id>/', mark_notification_read, name='mark_notification_read'),
 ]
 
