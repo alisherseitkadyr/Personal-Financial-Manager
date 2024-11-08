@@ -49,6 +49,10 @@ This project incorporates several design patterns to address specific design nee
     - **Purpose**: Enabling Undo/Redo Functionality: By encapsulating actions, the pattern allows reversing (undoing) operations by keeping track of commands.
     - **Exmaple in project**: Decoupling the Invoker from the Receiver: The object requesting an action (Invoker) is separated from the object that performs it (Receiver), promoting loose coupling.
 
+6. **Adapter** (Structural)
+    - **Purpose:** The Adapter pattern enables seamless integration of different currency exchange APIs by converting their interfaces into a unified one, making it easier for the application to handle various       services.
+    - Example in Project: The CurrencyConverterAdapter class adapts multiple currency exchange APIs into a common interface, allowing the project to convert currencies without worrying about the specific API          details. This improves flexibility and simplifies maintenance.
+
 ## UML Diagrams
 Currently, UML diagrams are not available for this project. Future updates may include:
 - **Class Diagram** - To illustrate the relationships and patterns applied within the system.
