@@ -10,6 +10,39 @@ from .models import Expense, Income, Notification
 from .services import BalanceService, InfoNotification, WarningNotification, SuccessNotification
 from .services import FinanceFacade
 
+from django.http import JsonResponse
+import json  # Ensure json is imported
+from .currency_adapter import CurrencyAdapter  # Your custom adapter
+
+def currency_convert(request):
+    if request.method == "POST":
+        try:
+            # Parse the incoming JSON body
+            data = json.loads(request.body)
+            from_currency = data.get("from_currency")
+            to_currency = data.get("to_currency")
+            amount = float(data.get("amount"))
+
+            # Validate required fields
+            if not from_currency or not to_currency or not amount:
+                return JsonResponse({"error": "Missing required fields."}, status=400)
+
+            # Get exchange rates and perform the conversion
+            rates = CurrencyAdapter.get_exchange_rates()
+            converted_amount = CurrencyAdapter.convert(amount, from_currency, to_currency, rates)
+
+            return JsonResponse({"converted_amount": converted_amount})
+
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON format."}, status=400)
+        except ValueError as e:
+            return JsonResponse({"error": f"Conversion error: {str(e)}"}, status=400)
+        except Exception as e:
+            # Catch any other unexpected errors
+            return JsonResponse({"error": f"An unexpected error occurred: {str(e)}"}, status=500)
+
+    return JsonResponse({"error": "Invalid request method."}, status=405)
+
 def mark_notification_read(request, notification_id):
     if request.user.is_authenticated:
         notification = Notification.objects.get(id=notification_id, user=request.user)

@@ -1,6 +1,8 @@
 from django.urls import path
 from .views import expense_list, add_expense, income_list, add_income, home, mark_notification_read, ExpenseDeleteView, \
     IncomeDeleteView
+from . import views
+from .views import currency_convert
 
 urlpatterns = [
     path('', home, name='home'),  # Home page path
@@ -11,5 +13,7 @@ urlpatterns = [
 path('notifications/mark-read/<int:notification_id>/', mark_notification_read, name='mark_notification_read'),
 path('expense/<int:pk>/delete/', ExpenseDeleteView.as_view(), name='expense_delete'),
     path('income/<int:pk>/delete/', IncomeDeleteView.as_view(), name='income_delete'),
+    path("currency_convert/", views.currency_convert, name="currency_convert"),
+
 ]
 
